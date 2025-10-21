@@ -664,8 +664,12 @@ class MintUpdate():
         else:
             self.logger.write("System is up to date")
             self.ui_stack.set_visible_child_name("success_page")
-            self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
-                                        not self.settings.get_boolean("hide-systray"))
+
+            if self.reboot_required:
+                self.set_status("", _("Reboot required"), "mintupdate-warning-symbolic", True)
+            else:
+                self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
+                                            not self.settings.get_boolean("hide-systray"))
 
 
         self.ui_notebook_details.set_current_page(0)
